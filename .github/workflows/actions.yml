@@ -1,1 +1,20 @@
+name: JQF github actions
+on: 
+  push:
+      branches: [master]
+jobs:
+ build-and-test:
+ runs on: ubuntu:latest
+ steps:
+ -name: Checkout latest # release or manually selected ref 
+  uses: actions/checkout@v2
+ 
+ -name: Gradle dependencies
+  uses: actions/cache@v2
+        with:
+        
+        
+         
+
+
 
