@@ -1,7 +1,7 @@
 name: JQF github actions
 on: 
   push:
-      branches: [master]
+      branches: [github-actions]
 jobs:
   build:
     runs-on: ubuntu-latest
