@@ -1,7 +1,7 @@
 name: JQF github actions
 on: 
   push:
-      branches: [github-actions]
+      branches: [v0.1]
 jobs:
   build:
     runs-on: windows-latest
