@@ -9,6 +9,11 @@ group 'com.mborzenkov'
 version '0.0.1-SNAPSHOT'
 description 'JQF: Feedback-directed Quickcheck for Java - Gradle plugin'
 
+compileJava {
+    sourceCompatibility = '1.8'
+    targetCompatibility = '1.8'
+}
+
 repositories {
     jcenter()
     mavenCentral()
@@ -18,11 +23,6 @@ dependencies {
     implementation 'edu.berkeley.cs.jqf:jqf:1.7'
     implementation 'edu.berkeley.cs.jqf:jqf-instrument:1.7'
     implementation 'edu.berkeley.cs.jqf:jqf-fuzz:1.7'
-
-    testImplementation('org.spockframework:spock-core:1.3-groovy-2.5') {
-        exclude module: 'groovy-all'
-    }
-    testImplementation 'junit:junit:4.12'
 }
 
 gradlePlugin {
