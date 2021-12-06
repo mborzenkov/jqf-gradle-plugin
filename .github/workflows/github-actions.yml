@@ -14,5 +14,4 @@ jobs:
           distribution: 'adopt'
       - name: Build with Gradle
         run: ./gradlew clean build
-      - name: fuzzing with Gradle
-        run: ./gradlew fuzz --class=com.mborzenkov.examplejavagradle.ExampleTestClass --method=exampleMethod --time=10s
+     
