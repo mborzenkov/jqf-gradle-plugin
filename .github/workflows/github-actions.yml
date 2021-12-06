@@ -15,4 +15,4 @@ jobs:
       - name: Build with Gradle
         run: ./gradlew clean build
       - name: fuzzing with Gradle
-        run: ./gradlew fuzz --class=com.example.YourTestClass --method=yourTestMethod --time=10s
+        run: ./gradlew fuzz --class=com.mborzenkov.jqfgradleplugin.task.JqfFuzzTask --method=fuzz --time=10s
