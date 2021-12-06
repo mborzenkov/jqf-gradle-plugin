@@ -3,10 +3,11 @@ plugins {
     id 'java'
     id 'java-gradle-plugin'
     id 'maven-publish'
+    id 'com.gradle.plugin-publish' version '0.18.0'
 }
 
 group 'com.mborzenkov'
-version '0.0.1-SNAPSHOT'
+version '0.2'
 description 'JQF: Feedback-directed Quickcheck for Java - Gradle plugin'
 
 compileJava {
@@ -27,9 +28,28 @@ dependencies {
 
 gradlePlugin {
     plugins {
-        jqf {
+        jqfGradlePlugin {
             id = 'com.mborzenkov.jqf-gradle-plugin'
+            displayName = 'JQF Gradle Plugin'
+            description = project.description
             implementationClass = 'com.mborzenkov.jqfgradleplugin.JqfGradlePlugin'
         }
     }
+}
+
+publishing {
+    publications {
+        jqfGradlePlugin(MavenPublication) {
+            from components.java
+            group project.group
+            version project.version
+            artifactId 'jqf-gradle-plugin'
+        }
+    }
+}
+
+pluginBundle {
+    website = 'https://github.com/mborzenkov/jqf-gradle-plugin'
+    vcsUrl = 'https://github.com/mborzenkov/jqf-gradle-plugin.git'
+    tags = ['jqf']
 }
