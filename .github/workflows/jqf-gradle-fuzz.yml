@@ -1,0 +1,56 @@
+name: JQF Gradle Fuzz
+
+on:
+  workflow_dispatch:
+    inputs:
+      class:
+        description: 'Test Class, ex: com.example.TestClass'
+        required: true
+      method:
+        description: 'Test Method, ex: testMethod'
+        required: true
+      time:
+        description: 'Time Limit, ex: 1m'
+        required: true
+      engine:
+        description: 'Fuzzing engine, Zest or Zeal'
+        required: false
+        default: zest
+      extra_params:
+        description: 'Extra params for JQF, ex: --blind --noCov'
+        required: false
+
+jobs:
+  checkout_and_build_plugin:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout JQF Gradle Plugin # needed only while plugin is not published
+        uses: actions/checkout@v2
+        with:
+          repository: mborzenkov/jqf-gradle-plugin
+          ref: master
+          path: jqf-gradle-plugin
+      - name: Setup JDK 8
+        uses: actions/setup-java@v2
+        with:
+          java-version: '8'
+          distribution: 'adopt'
+      - name: Build Gradle Plugin
+        working-directory: jqf-gradle-plugin
+        run: ./gradlew clean build
+      - name: Publish Gradle Plugin to Maven Local
+        working-directory: jqf-gradle-plugin
+        run: ./gradlew publishToMavenLocal
+      - name: Checkout Example # remove all steps above after JQF Gradle Plugin is published
+        uses: actions/checkout@v2
+      - name: Build Example
+        run: ./gradlew clean build testClasses -x test
+      - name: JQF Fuzz
+        continue-on-error: true
+        run: ./gradlew fuzz --class=${{ github.event.inputs.class }} --method=${{ github.event.inputs.method }} --time=${{ github.event.inputs.time }} --engine=${{ github.event.inputs.engine }} ${{ github.event.inputs.extra_params }}
+      - name: Upload Results
+        uses: actions/upload-artifact@v2
+        with:
+          name: fuzz-results
+          path: build/fuzz-results
+          retention-days: 1
