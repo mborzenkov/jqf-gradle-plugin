@@ -69,6 +69,7 @@ This section is about JQF Gradle Plugin implementation.
 
 - Plugin is configured in JqfGradlePlugin. It has only two tasks: JqfFuzzTask and JqfReproTask.
 - To publish the plugin locally, build it and run `./gradlew publishToMavenLocal`
+- To publish the plugin to Gradle Plugins Portal, build it and run `./gradlew publishPlugins`. Note: this action requires secret API keys .
 
 ## Improvements
 
