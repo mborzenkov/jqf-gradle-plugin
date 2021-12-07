@@ -83,9 +83,9 @@ public class JqfFuzzTask extends DefaultTask {
   private String inputDirectory;
   private String outputDirectory;
   private boolean saveAll;
-  private String libFuzzerCompatOutput;
+  private boolean libFuzzerCompatOutput;
   private boolean quiet;
-  private String exitOnCrash;
+  private boolean exitOnCrash;
   private String runTimeout;
   private int runTimeoutMs;
   private boolean fixedSizeInputs;
@@ -217,7 +217,7 @@ public class JqfFuzzTask extends DefaultTask {
           + "If this property is set to `true`, then output will look like libFuzzer output "
           + "https://llvm.org/docs/LibFuzzer.html#output"
   )
-  public void setLibFuzzerCompatOutput(String libFuzzerCompatOutput) {
+  public void setLibFuzzerCompatOutput(boolean libFuzzerCompatOutput) {
     this.libFuzzerCompatOutput = libFuzzerCompatOutput;
   }
 
@@ -237,7 +237,7 @@ public class JqfFuzzTask extends DefaultTask {
           + "crash. Useful for continuous fuzzing when you dont wont to consume resource "
           + "once a crash is found. Also fuzzing will be more effective once the crash is fixed."
   )
-  public void setExitOnCrash(String exitOnCrash) {
+  public void setExitOnCrash(boolean exitOnCrash) {
     this.exitOnCrash = exitOnCrash;
   }
 
@@ -291,20 +291,20 @@ public class JqfFuzzTask extends DefaultTask {
     if (saveAll) {
       System.setProperty("jqf.ei.SAVE_ALL_INPUTS", "true");
     }
-    if (libFuzzerCompatOutput != null) {
-      System.setProperty("jqf.ei.LIBFUZZER_COMPAT_OUTPUT", libFuzzerCompatOutput);
+    if (libFuzzerCompatOutput) {
+      System.setProperty("jqf.ei.LIBFUZZER_COMPAT_OUTPUT", "true");
     }
     if (quiet) {
       System.setProperty("jqf.ei.QUIET_MODE", "true");
     }
-    if (exitOnCrash != null) {
-      System.setProperty("jqf.ei.EXIT_ON_CRASH", exitOnCrash);
+    if (exitOnCrash) {
+      System.setProperty("jqf.ei.EXIT_ON_CRASH", "true");
     }
     if (runTimeoutMs > 0) {
       System.setProperty("jqf.ei.TIMEOUT", String.valueOf(runTimeout));
     }
     if (fixedSizeInputs) {
-      System.setProperty("jqf.ei.GENERATE_EOF_WHEN_OUT", String.valueOf(true));
+      System.setProperty("jqf.ei.GENERATE_EOF_WHEN_OUT", "true");
     }
 
     if (outputDirectory == null || outputDirectory.isEmpty()) {

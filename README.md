@@ -74,11 +74,10 @@ This section is about JQF Gradle Plugin implementation.
 
 This section is about important parts for the further development of this plugin.
 
-- Implement GitHub Actions
 - Update ZestGuidance to print to stdout instead of `System.console`; otherwise, Gradle is not
   showing updates
 - There might be an issue with caches that needs some additional settings.
-  `--nodaemon` option acts as a temporary solution.
+  `--no-daemon` option acts as a temporary solution.
 
 ## Collaboration
 

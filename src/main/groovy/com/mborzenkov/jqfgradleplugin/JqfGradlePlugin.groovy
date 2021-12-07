@@ -16,13 +16,13 @@ class JqfGradlePlugin implements Plugin<Project> {
             group = 'JQF'
             description = 'Performs code-coverage-guided generator-based fuzz testing ' +
                     'using a provided entry point.\n' +
-                    'Required options: --class, --method' +
+                    'Required options: --class, --method ' +
                     'USAGE: ' + USAGE
         }
         project.tasks.create('repro', JqfReproTask) {
             group = 'JQF'
-            description = 'Replays a test case produced by JQF.' +
-                    'Required options: --class, --method, --input' +
+            description = 'Replays a test case produced by JQF.\n' +
+                    'Required options: --class, --method, --input ' +
                     'USAGE: ' + USAGE
         }
     }
